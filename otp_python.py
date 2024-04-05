@@ -31,14 +31,29 @@ import argparse
 # args = parser.parse_args()
 # print(args)
 
+# Spec out for command line
+    # - will I be able to write everything on the commandline as args and use throughout program???
+    # generating key file
+        # - maybe I don't need the key file here --> just need the count of chars to be generated???
+        # C: [binary file] [-a] [key] [key count] [file name]
+        # P: [python3] []
+    # encodeing
+        # here will need plaintext, will need key file
+     #decoding
+        # will need encoded file and key file
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-k', '--key')
-    parser.add_argument('-e', '--encode')
-    parser.add_argument('-d', '--decode')
+    #options for command line
+    parser.add_argument('-k', '--key', dest = 'key file', help = 'Name of file to hold generated key', action = 'store_const', const = 256)
+    parser.add_argument('-e', '--encode', dest = 'encode file', help = 'Name of file to hold encoded text (plaintext text converted using key)')
+    parser.add_argument('-d', '--decode', dest = 'decode file', help='Name of file holding decoded messaage (encoded text converted to plaintext)')
+    
 
     args = parser.parse_args()
     print(args)
+    # print(args.key)
 
 if __name__ == "__main__":
     main()
