@@ -46,7 +46,8 @@ import argparse
 def main():
     parser = argparse.ArgumentParser()
     #options for command line
-    parser.add_argument('-k', '--key', dest = 'key file', help = 'Name of file to hold generated key', action = 'store_const', const = 256)
+    # add key generation information
+    parser.add_argument('-k', '--key', dest = 'key file', action = 'store_const', metavar = 'N', type = int, const = 256, help = 'Count of chars to generate for key file to hold')
     parser.add_argument('-e', '--encode', dest = 'encode file', help = 'Name of file to hold encoded text (plaintext text converted using key)')
     parser.add_argument('-d', '--decode', dest = 'decode file', help='Name of file holding decoded messaage (encoded text converted to plaintext)')
     
