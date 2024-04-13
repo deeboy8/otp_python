@@ -1,0 +1,8 @@
+12Apr24 Session
+    // ./otp keygen -l N [-k key.txt | <stdout>]
+    // e.g., ./otp -l 128 <enter> // dump a 128 char key to stdout->terminal
+    // e.g., ./otp -l 128 > key.txt <enter> // dump a 128 char key to stdout->key.txt (shell)
+    // e.g., ./otp -l 128 -k key.txt <enter> // dump a 128 char key to key.txt (NOT stdout)
+
+    // cat pt.txt | ./otp encode -k key.txt | ./otp decode -k key.txt | diff pt.txt
+    // print nothing
