@@ -1,5 +1,19 @@
 # notes
 
+## 4/12
+
+- reviewed standard handles (*i.e.*, `stdin`, `stdout`, and `stderr`) WRT to both *redirection* and *piping*, and the roles & resposibilities of:
+  - application (process)
+  - shell
+  - OS
+- peeked at `pytest` and discussed/demoed the much deeper UT integration, into VS Code,  compared to munit
+  - test explorer
+  - run/debug test codelens
+
+### 4/12 next
+
+- complete - production code and unit tests - `./otp` command line, based on discussions, using `argparse`
+
 ## 4/5
 
 - discussed *classes* ('blueprints', 'templates', 'stencils') vs. *objects*, which are *instances* of a `class`
