@@ -5,13 +5,13 @@ import time
 
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
-def decode(key, key_data, plaintext_count):
+def decode(alpha, key, key_data, plaintext_count):
     print("did decode", file=sys.stderr)
-    return key 
+    return 'a'
 
-def encode(key, key_data, plaintext_count):
+def encode(alpha, key, key_data, plaintext_count):
     print("did encode", file=sys.stderr)
-    return key 
+    return 'a'
 
 def main():
     #generate and fill parser with appropriate arguments
@@ -41,40 +41,35 @@ def main():
                 # key_data = f_key.read()
                 # print(f"Key date is : {key_data}")
                 f_key.write('\n')
-                sys.stdout.write(f_key) #WRITING KEY TO BE PIPED TO ENCODE
         except FileNotFoundError as err:
             print(err)
         #generate plaintext file to hold original message for encryption
         try:
             with open("plaintext.txt", "w") as f_plaintext:
                 f_plaintext.write(args.plaintext)
+                sys.stdout.write(args.plaintext)
         except FileNotFoundError as err:
             print(err)
     else:
-        #### NO LONGER NECESSARY: KEY PIPED ####
-        # try:
-        #     with open("key.txt", "r") as file1:
-        #         key_data = file1.read()
-        # except FileNotFoundError as err:
-        #     print(err)
-        # plaintext_count = args.plaintext
+        try:
+            with open("key.txt", "r") as file1:
+                key_data = file1.read()
+        except FileNotFoundError as err:
+            print(err)
+        f_plaintext = sys.stdin.read()
+        plaintext_len = len(f_plaintext)
         #obtain key data to use to encode plaintext msg
         if args.encode_file is not None:
-            key_data = sys.stdin.read()
             # print("demitri first", file=sys.stderr) #printiin to stdout but with pipe goes to decoder aka stdin of decoder
-            ###plaintext redirected from cat plaintext.txt### --> NO LONGER NECESSARY. CAN PULL PLAINTEXT DIRECTLY FROM ARG PARSER
-            plaintext = args.plaintext
-            plaintext_len = len(args.plaintext)
             #generate ciphertext by calling fx passing key, plaintext
-            ciphertext = encode(alpha, key_data, plaintext, plaintext_len)
+            ciphertext = encode(alpha, key_data, f_plaintext, plaintext_len)
             sys.stdout.write(ciphertext)
         if args.decode_file is not None:
-            # print("demitri", file=sys.stderr)
-            new_var = sys.stdin.read()
+            time.sleep(1)
+            ciphertext = sys.stdin.read()
             #generate new_plaintext by passing key and ciphertext to appropriate fx
             new_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
             sys.stdout.write(new_plaintext)
-        # file1.close()
            
     print(args, file=sys.stderr)
     
