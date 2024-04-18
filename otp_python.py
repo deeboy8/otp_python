@@ -63,18 +63,25 @@ def main():
             # print("demitri first", file=sys.stderr) #printiin to stdout but with pipe goes to decoder aka stdin of decoder
             #generate ciphertext by calling fx passing key, plaintext
             ciphertext = encode(alpha, key_data, f_plaintext, plaintext_len)
+            try:
+                with open("ciphertext.txt", 'w+') as cipher:
+                    cipher.write(ciphertext)
+            except FileNotFoundError as err:
+                print(err)
             sys.stdout.write(ciphertext)
         if args.decode_file is not None:
             time.sleep(1)
             ciphertext = sys.stdin.read()
             #generate new_plaintext by passing key and ciphertext to appropriate fx
-            new_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
-            sys.stdout.write(new_plaintext)
+            decoded_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
+            try:
+                with open("decoded_plaintext.txt", 'w+') as new_plaintext:
+                    new_plaintext.write(decoded_plaintext)
+            except FileNotFoundError as err:
+                print(err)
            
     print(args, file=sys.stderr)
     
-    
-
 if __name__ == "__main__":
     main()
 
