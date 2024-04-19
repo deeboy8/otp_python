@@ -5,37 +5,38 @@ import time
 
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
+#receive ciphertext to be decoded using key 
 def decode(alpha, key, key_data, plaintext_count):
     print("did decode", file=sys.stderr)
-    return 'a'
+    return 'today is Friday'
 
+#receive plaintext and key data to generate encoded msg aka ciphertext
 def encode(alpha, key, key_data, plaintext_count):
     print("did encode", file=sys.stderr)
     return 'a'
 
 def main():
-    #generate and fill parser with appropriate arguments
+    #generate parser and fill with appropriate command line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-k', '--key', dest = 'key_count', help = 'count of chars to generate for key file to hold')
-    parser.add_argument('-e', '--encode', dest = 'encode_file', help = 'name of file to hold encoded text (plaintext text converted using key)')
-    parser.add_argument('-d', '--decode', dest = 'decode_file', help='name of file holding decoded messaage (encoded text converted to plaintext)')
+    parser.add_argument('-k', '--key', dest = 'key_text', help = 'file to be generated opened') #convert this to key file 
+    parser.add_argument('-N', '--length', dest = 'key_length', help = 'count of chars to generate for key file to hold') #convert this to key file 
+    parser.add_argument('-e', '--encode', dest = 'encode_file', help = 'name of file to hold encoded text (plaintext text converted using key)') #convert this to take encode.txt file
+    parser.add_argument('-d', '--decode', dest = 'decode_file', help='name of file holding decoded messaage (encoded text converted to plaintext)') #convert this to take decode.txt file
     parser.add_argument('-p', '--plaintext', help = 'the message to be encoded') 
     parser.add_argument('-v', '--verbose', help='provide greater depth of help test')
     args = parser.parse_args()
 
     #beginning of UI/CLI interface
     #generate key file consisting of random chars for encoding and decoding plaintext and ciphertext
-    #setting up plaintext to be written to file for use in cat fx 
-    if args.key_count is not None:
-        key_count = int(args.key_count)
-        #open file key.txt for writing
+    if args.key_text is not None:
+        key_count = int(args.key_length)
         try:
-            with open("key.txt", "w+") as f_key:
+            #generate random number to use as the index to pull a random char from gloabl alpha string variable  
+            #this will create the key to encode the original msg
+            with open(args.key_text, "w+") as f_key:
                 for i in range(key_count):
                     #generate random number 
                     rand_num = random.randrange(27)
-                    #use random number as index and extract char from alpha variable to write to key file 
-                    #this will create the key to encode the original message
                     rand_char = alpha[rand_num]
                     f_key.write(rand_char)
                 # key_data = f_key.read()
@@ -43,7 +44,8 @@ def main():
                 f_key.write('\n')
         except FileNotFoundError as err:
             print(err)
-        #generate plaintext file to hold original message for encryption
+        #generate plaintext file to hold original msg
+        #will be used in comparing orginal msg with decoded msg using linux diff cmd
         try:
             with open("plaintext.txt", "w") as f_plaintext:
                 f_plaintext.write(args.plaintext)
@@ -58,7 +60,8 @@ def main():
             print(err)
         f_plaintext = sys.stdin.read()
         plaintext_len = len(f_plaintext)
-        #obtain key data to use to encode plaintext msg
+        #generate encoding of original msg using key file and original plaintext file
+        #this will create the ciphertext file
         if args.encode_file is not None:
             # print("demitri first", file=sys.stderr) #printiin to stdout but with pipe goes to decoder aka stdin of decoder
             #generate ciphertext by calling fx passing key, plaintext
@@ -69,8 +72,10 @@ def main():
             except FileNotFoundError as err:
                 print(err)
             sys.stdout.write(ciphertext)
+        #generate decoded original msg using key file and the ciphertext file
+        #this will create the original msg store in the variable new_plaintext
         if args.decode_file is not None:
-            time.sleep(1)
+            # time.sleep(1)
             ciphertext = sys.stdin.read()
             #generate new_plaintext by passing key and ciphertext to appropriate fx
             decoded_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
@@ -80,8 +85,10 @@ def main():
             except FileNotFoundError as err:
                 print(err)
            
-    print(args, file=sys.stderr)
+    # print(args, file=sys.stderr)
     
 if __name__ == "__main__":
     main()
 
+# Questions
+#     - why no error for when piping to diff
