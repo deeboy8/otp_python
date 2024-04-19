@@ -26,6 +26,8 @@ def main():
     parser.add_argument('-v', '--verbose', help='provide greater depth of help test')
     args = parser.parse_args()
 
+    ###add another arg that will allow the for using a file as plaintext and NOT BOTH
+
     #beginning of UI/CLI interface
     #generate key file consisting of random chars for encoding and decoding plaintext and ciphertext
     if args.key_text is not None:
@@ -92,3 +94,4 @@ if __name__ == "__main__":
 
 # Questions
 #     - why no error for when piping to diff
+    # - documentation appropriate?

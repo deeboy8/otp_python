@@ -5,4 +5,29 @@
     // e.g., ./otp -l 128 -k key.txt <enter> // dump a 128 char key to key.txt (NOT stdout)
 
     // cat pt.txt | ./otp encode -k key.txt | ./otp decode -k key.txt | diff pt.txt
+
     // print nothing
+
+
+    python3 otp_python.py -l N -k key.txt 
+
+    MUST STRING EVERYTHING TOGETHER
+    - KEY + PLAINTEXT | ENCODE | DECODE | CAT 
+
+19Apr24
+// cat pt.txt | ./otp encode -k key.txt | ./otp decode -k key.txt | diff pt.txt
+- encode's source for PT:
+1. stdin (as above)
+2. pt.txt -> './otp encode -i pt.txt -k key.txt | ./otp decode -k key.txt | diff pt.txt`
+3. "command line PT" -> './otp encode -p "command line PT" -k key.txt | ./otp decode -k key.txt | diff pt.txt`
+
+// ./otp keygen -seed s -l N [-k key.txt | <stdout>]    // implicitly ALPHABET
+func keygen(seed, length, ALPHABET) -> key: str
+- if seed, length and ALPHA are same - keygen will always generate the same key
+
+./otp encode -p "plain text" -seed -length | ./otp decode -seed -length | diff pt.txt`
+./otp  keygen -k key.txt -seed -length |./otp encode -p "plain text" -seed -length | ./otp decode -seed -length | diff pt.txt`
+
+// ./otp keygen -seed s -l N > mykey.key
+
+
