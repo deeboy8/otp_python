@@ -24,6 +24,7 @@ def main():
     parser.add_argument('-d', '--decode', dest = 'decode_file', help='name of file holding decoded messaage (encoded text converted to plaintext)') #convert this to take decode.txt file
     parser.add_argument('-p', '--plaintext', help = 'the message to be encoded') 
     parser.add_argument('-v', '--verbose', help='provide greater depth of help test')
+    parser.add_argument('-P', 'plaintext_file', help='file with plaintext to be used for encoding')
     args = parser.parse_args()
 
     ###add another arg that will allow the for using a file as plaintext and NOT BOTH
@@ -33,8 +34,8 @@ def main():
     if args.key_text is not None:
         key_count = int(args.key_length)
         try:
-            #generate random number to use as the index to pull a random char from gloabl alpha string variable  
-            #this will create the key to encode the original msg
+            #generate random number.This will be used as the index value to "pull" a random char from the global alpha string variable  
+            #will create the key to encode the original msg
             with open(args.key_text, "w+") as f_key:
                 for i in range(key_count):
                     #generate random number 
@@ -49,14 +50,18 @@ def main():
         #generate plaintext file to hold original msg
         #will be used in comparing orginal msg with decoded msg using linux diff cmd
         try:
-            with open("plaintext.txt", "w") as f_plaintext:
-                f_plaintext.write(args.plaintext)
-                sys.stdout.write(args.plaintext)
+            if args.plaintext is not None and args.plaintext_file is None:
+                with open(args.plaintext, "w") as f_plaintext:
+                    f_plaintext.write(args.plaintext)
+                    sys.stdout.write(args.plaintext)
+            elif args.plaintext_file is not None and args.plaintext is None:
+                with open(args.plaintext_file, "w"): #as f_plaintext:
+                    sys.stdout.write(args.plaintext_file)
         except FileNotFoundError as err:
             print(err)
     else:
         try:
-            with open("key.txt", "r") as file1:
+            with open(args.key_text, "r") as file1:
                 key_data = file1.read()
         except FileNotFoundError as err:
             print(err)
@@ -77,7 +82,6 @@ def main():
         #generate decoded original msg using key file and the ciphertext file
         #this will create the original msg store in the variable new_plaintext
         if args.decode_file is not None:
-            # time.sleep(1)
             ciphertext = sys.stdin.read()
             #generate new_plaintext by passing key and ciphertext to appropriate fx
             decoded_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
@@ -86,6 +90,7 @@ def main():
                     new_plaintext.write(decoded_plaintext)
             except FileNotFoundError as err:
                 print(err)
+        sys.stdout.write(new_plaintext)
            
     # print(args, file=sys.stderr)
     
