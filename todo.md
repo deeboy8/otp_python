@@ -1,5 +1,62 @@
 # notes
 
+## 4/19
+
+- my attempt to *consolidate* and *capture* our discussions, Lessons, notes, and LSes - relating to `otp`'s command line arguments/options - in a reviewable/usable format:
+
+```shell
+usage: otp [--version] [--help] [--verbose [VERBOSE]] [--log-level [LOG-LEVEL]] 
+        keygen [--length LENGTH] [--seed [SEED]] [--key-file KEY-FILE] |
+        encode [--in-file [PT-FILE] | --text PT-STRING] [--out-file CT-FILE] 
+            --key-file KEY-FILE | --key KEY-STRING | [--length [LENGTH] --seed [SEED]]] [--algorithm [ALGORITHM]] |
+        decode [--in-file [CT-FILE] | --text CT-STRING] [--out-file PT-FILE] 
+            --key-file KEY-FILE | --key KEY-STRING | [--length [LENGTH] --seed [SEED]]] [--algorithm [ALGORITHM]]
+```
+
+|          | pri | short name | option/arg                | description                                   | type      | missing        | default   | possible values                  | notes |
+| -------- | --- | ---------- | ------------------------- | --------------------------------------------- | --------- | -------------- | --------- | -------------------------------- | ----- |
+| `otp`    |     |            |                           |                                               |           |                |           |                                  |       |
+|          | 1   |            | `--version`               | Show program's version number                 | BOOL      | `false`        |           |                                  |       |
+|          | 1   |            | `--help`                  | Show help message                             | BOOL      | `false`        |           |                                  |       |
+|          | 1   | `-v`       | `--verbose[=VERBOSE]`     | Set verbosity level                           | COUNTER   | `0`            | `1`       |                                  |       |
+|          | 2   |            | `--log-level[=LOG-LEVEL]` | Set log level                                 | LOG-LEVEL | `error`        | `info`    | `debug`, `info`, `warn`, `error` |       |
+| `keygen` | 1   |            |                           |                                               |           |                |           |                                  |       |
+|          | 1   | `-l`       | `--length=LENGTH`         | Specify length of the key                     | INTEGER   | `128`          |           | $\{0, 1, 2, \ldots, N\}$         |       |
+|          | 1   | `-s`       | `--seed[=SEED]`           | Specify seed for key generation               | INTEGER   | `current time` | `0`       | $\{1, 2, 3, \ldots, N\}$         |       |
+|          | 1   | `-k`       | `--key-file[=KEY-FILE]`   | Specify key file                              | FILENAME  | `stdout`       | `key.txt` |                                  |       |
+| `encode` | 1   |            |                           |                                               |           |                |           |                                  |       |
+|          | 1   | `-i`       | `--in-file[=PT-FILE]`     | Specify input file for encoding [^5]          | FILENAME  | `stdin`        | `pt.txt`  |                                  |       |
+|          | 1   | `-t`       | `--text=PT-STRING`        | Specify input text directly for encoding [^6] | STRING    |                |           |                                  |       |
+|          | 1   | `-o`       | `--out-file[=CT-FILE]`    | Specify output file                           | FILENAME  | `stdout`       | `ct.txt`  |                                  |       |
+|          | 1   | `-k`       | `--key-file=KEY-FILE`     | Specify key file [^1]                         | FILENAME  | `key.txt`      |           |                                  |       |
+|          | 2   | `-x`       | `--key=KEY-STRING`        | Specify key directly  [^2]                    | STRING    |                |           |                                  |       |
+|          | 2   | `-l`       | `--length=LENGTH`         | Specify length of the key  [^3]               | INTEGER   | `128`          |           |                                  |       |
+|          | 1   | `-s`       | `--seed=SEED`             | Specify seed for key generation  [^4]         | INTEGER   | `current time` | `0`       |                                  |       |
+|          | 2   | `-a`       | `--algorithm[=ALGORITHM]` | Specify encryption/decryption algorithm       | ALGORITHM | `xor`          | `mod`     | `mod`, `xor`                     |       |
+| `decode` | 1   |            |                           |                                               |           |                |           |                                  |       |
+|          | 1   | `-i`       | `--in-file[=CT-FILE]`     | Specify input file for decoding [^5]          | FILENAME  | `stdin`        | `ct.txt`  |                                  |       |
+|          | 1   | `-t`       | `--text=CT-STRING`        | Specify input text directly for decoding [^6] | STRING    |                |           |                                  |       |
+|          | 1   | `-o`       | `--out-file[=PT-FILE]`    | Specify output file                           | FILENAME  | `stdout`       | `pt.txt`  |                                  |       |
+|          | 1   | `-k`       | `--key-file=KEY-FILE`     | Specify key file [^1]                         | FILENAME  | `key.txt`      |           |                                  |       |
+|          | 2   | `-x`       | `--key=KEY-STRING`        | Specify key directly  [^2]                    | STRING    |                |           |                                  |       |
+|          | 2   | `-l`       | `--length=LENGTH`         | Specify length of the key  [^3]               | INTEGER   | `128`          |           |                                  |       |
+|          | 1   | `-s`       | `--seed=SEED`             | Specify seed for key generation  [^4]         | INTEGER   | `current time` | `0`       |                                  |       |
+|          | 2   | `-a`       | `--algorithm[=ALGORITHM]` | Specify encryption/decryption algorithm       | ALGORITHM | `xor`          | `mod`     | `mod`, `xor`                     |       |
+| TODO     |     |            |                           |                                               |           |                |           |                                  |       |
+|          | 4   |            |                           | ability to specify alphabet                   |           |                |           |                                  |       |
+|          | 3   |            |                           | design/refactor for (network) C/S support     |           |                |           |                                  |       |
+
+[^1]: Can not be used w/ `key`, `length`, or `seed`
+[^2]: Can not be used w/ `key-file`, `length`, or `seed`
+[^3]: Can not be used w/ `key`or`key-|      file` and must be used w/ `seed`
+[^4]: Can not be used w/ `key`or`key-file` and must be used w/ `length`
+[^5]: Can not be used w/ `text`
+[^6]: Can not be used w/ `in-file`
+
+### 4/19 next
+
+- complete `otp` (`pri-1`) command line per above
+
 ## 4/16
 
 - in today’s Lesson – after catching up some personal going-ons, we had a lengthy, opinionated discussion about languages and tech:
