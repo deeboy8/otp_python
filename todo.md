@@ -1,5 +1,79 @@
 # notes
 
+## 4/23
+
+- Discussed job interviews, which led to a discussion on possibly working on some sort of scientific software, *e.g.*, for inspiration:
+  - **Proteins** may be of interest:
+    - [RCSB PDB: Homepage](https://www.rcsb.org/)
+    - [PDB-101: Browse: Visualizing Molecules](https://pdb101.rcsb.org/browse/visualizing-molecules)
+    - [fogleman/ribbon: Ribbon diagrams of proteins in #golang.](https://github.com/fogleman/ribbon)
+      - Pretty pictures – I’ve used other PKGs from GG – high quality in my experience
+      - ![protein visualization](https://camo.githubusercontent.com/38781afa7fc29e23bc77335b4032ca3b1533b91f5b79362131622390c67c4972/687474703a2f2f692e696d6775722e636f6d2f554670724247742e706e67)
+  - How about **biology/botany** and describing plants (and other natural phenomena I suspect) - **L-Systems**:
+    - [An Introduction to Lindenmayer Systems](https://www-archiv.fdm.uni-hamburg.de/b-online/e28_3/lsys.html)
+    - [Algorithmic Botany: Home](http://algorithmicbotany.org/)
+  - **One of my favorite** books on modelling **natural systems** – implementation is J5 – but implementing this book – or a subset – could be a lot of fun and yield an interesting portfolio:
+    - [Nature of Code](https://natureofcode.com/)
+- I committed to an initial survey of **networking** in Python, and so discussed w/Python devs w/*way* more Python experience than me or you😎, did a *miniscule* amount of research, and ended up with:
+  - sockets
+    - [socket — Low-level networking interface — Python 3.12.3 documentation](https://docs.python.org/3/library/socket.html)
+    - [Socket Programming HOWTO — Python 3.12.3 documentation](https://docs.python.org/3/howto/sockets.html)
+  - http
+    - [Requests: HTTP for Humans™ — Requests 2.31.0 documentation](https://docs.python-requests.org/en/latest/index.html)
+  - packet sniffer
+    - [Scapy](https://scapy.net/)
+  - protocols
+    - [Twisted](https://twisted.org/)
+  - web frameworks
+    - [Welcome to Flask — Flask Documentation (3.0.x)](https://flask.palletsprojects.com/en/3.0.x/)
+    - [CherryPy — A Minimalist Python Web Framework](https://cherrypy.dev/)
+    - [The web framework for perfectionists with deadlines | Django](https://www.djangoproject.com/)
+    - [The Web Framework that scales with you. — TurboGears2 Website 3.0 documentation](https://turbogears.org/)
+- We also discussed maintaining project/meeting notes in:
+  - Markdown
+  - Jupyter NBs?
+- A flash from the past - in the form of `bsq` came next
+  - Tried to determine why we used a `0`/`1` vs `o`/`.` for internal representation of the map
+    - Maybe for a simper, validated, common structure?
+    - Maybe a constraint from the original assignment?
+      > Decided that in this case it wasn’t obvious
+    - Discussed refactoring common fields into an embedded `struct`:
+
+      ``` C
+      typedef struct A {
+        int x;
+        int y;
+        int z;
+      };
+      typedef struct B {
+        A a;
+        int z;
+      };
+      typedef struct C {
+        A a
+        B b;
+        int z;
+      };
+      // ...
+      C c;
+      c.z = 1;
+      c.b.z = 1;
+      c.b.a.z = 1;
+      c.a.z = 1;
+      // ...
+      ```
+
+- Reviewed table (CLAs) from LS 4/19
+
+### 4/23 next
+
+- Implement p1 items from *table*
+- Restructure notes as MD or NB and continue to use going forwards
+
+> Thx for keeping current on Venmo  
+>
+> Good luck and have fun!
+
 ## 4/19
 
 - my attempt to *consolidate* and *capture* our discussions, Lessons, notes, and LSes - relating to `otp`'s command line arguments/options - in a reviewable/usable format:
