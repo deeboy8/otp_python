@@ -75,28 +75,34 @@ def main():
             print(err)
         #generate plaintext file to hold original msg
         #will be used in comparing orginal msg with decoded msg using linux diff cmd
+        if args.plaintext is not None and args.plaintext_file is not None:
+            print("usage error: only one importation of plaintext allowed", file=sys.stderr)
         if args.plaintext is not None or args.plaintext_file is not None:
             try:
                 if args.plaintext is not None and args.plaintext_file is None:
+                    #if -p flag used will pull text directly from command line from user
+                    #will write text to new file created
                     with open(args.input_file, "w+") as f_plaintext:
                         f_plaintext.write(args.plaintext)
-                        sys.stdout.write(args.plaintext)
-                #will open plaintext file and read into stdout handle for redirection on command line
-                elif args.plaintext_file is not None and args.plaintext is None:
-                    with open(args.plaintext_file, "r") as f_plaintext:
-                        pt_data = f_plaintext.read(args.plaintext)
-                        sys.stdout.write(pt_data)
+                        # sys.stdout.write(args.plaintext)
+                #will open text file and read into stdout handle for redirection on command line
+                # elif args.plaintext_file is not None and args.plaintext is None:
+                #     with open(args.plaintext_file, "r") as f_plaintext:
+                #         pt_data = f_plaintext.read(args.plaintext)
+                #         # sys.stdout.write(pt_data)
             except FileNotFoundError as err:
                 print(err)
+        try:
+            with open()
         #plaintext received from command line redirection via stdout
-        f_plaintext = sys.stdin.read()
+        # f_plaintext = read()
         plaintext_len = len(f_plaintext)
         #generate encoding of original msg using key file and original plaintext file
         #this will create the ciphertext file
         if args.encode is not None:
             # print("demitri first", file=sys.stderr) #printiin to stdout but with pipe goes to decoder aka stdin of decoder
             #generate ciphertext by calling fx passing key, plaintext
-            ciphertext = encode(alpha, key_data, f_plaintext, plaintext_len)
+            ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
             try:
                 with open(args.encode, 'w+') as cipher:
                     cipher.write(ciphertext)
