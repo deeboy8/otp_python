@@ -11,7 +11,7 @@
     - quality assurance
     - product support
   > - asking lots of questions - w/people who you've established trust in the past - iteratively/incrementally is, imho, a good way to avoid these snafus
-- discussed bug wrt order that parsers are declared which led to...*the grand refactoring* based on the idea of multiple parsers, and common args/opts:
+- discussed bug wrt order that parsers are declared which led to...*the grand (parser) refactoring* based on the idea of multiple parsers, and common args/opts:
   1. declare common args/opts (*e.g.*, `-i`, `-o`, *etc.*)
      1. parameterized over command specific values (*e.g.*, file names - `ct.txt` vs `pt.txt`, name of arg/opt - `in-file`, *etc.*)
   2. declare parser for (i.)
@@ -25,7 +25,7 @@
 
 ### 5/3 next
 
-- review the *the grand refactoring*
+- review the *the grand (parser) refactoring*
 
 ## 4/23
 
