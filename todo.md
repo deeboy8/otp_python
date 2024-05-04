@@ -1,5 +1,32 @@
 # notes
 
+## 5/3
+
+- *embedded struct* example **was** for you - see below (end of `4/23` notes)
+- decided to *pair-program* next project, in contrast to the *top-down* approach we've historically used
+- independently came to the same conclusion wrt *frustration*:
+  - mismatch between the path you were on and the *spec* (table)
+  - good learning experience as this type of mismatched objectives happens all the time in industry between product development teams and:
+    - product management
+    - quality assurance
+    - product support
+  > - asking lots of questions - w/people who you've established trust in the past - iteratively/incrementally is, imho, a good way to avoid these snafus
+- discussed bug wrt order that parsers are declared which led to...*the grand refactoring* based on the idea of multiple parsers, and common args/opts:
+  1. declare common args/opts (*e.g.*, `-i`, `-o`, *etc.*)
+     1. parameterized over command specific values (*e.g.*, file names - `ct.txt` vs `pt.txt`, name of arg/opt - `in-file`, *etc.*)
+  2. declare parser for (i.)
+  3. declare/execute command (`keygen`, `encode`, `decode`) parser
+  4. declare/execute one of three *command specific* parsers:
+     1. based on (inherited?) from (ii.)
+     2. declare and add command specific args/opts
+  5. execute one command specific parser
+
+> I think that's what we discussed, hypothesized, and agreed to, yes😎?
+
+### 5/3 next
+
+- review the *the grand refactoring*
+
 ## 4/23
 
 - Discussed job interviews, which led to a discussion on possibly working on some sort of scientific software, *e.g.*, for inspiration:
