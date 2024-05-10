@@ -1,5 +1,28 @@
 # notes
 
+## 5/10
+
+- quick discussion on interview/job opportunities
+- discussed refactoring *data structures* (vs. *code* and *text*), specifically `C` `structs`
+  - assuming *good names* for both *types* and *fields*, aids in:
+    - code structure/maintenance (DRY - Don't Repeat Yourself); reuse existing DS, *e.g.*, `typedef struct Coordinate`
+    - abstraction; ability to write/read code at different levels/layers/depth of understanding
+- reviewed/debugged `argparse` issues:
+  - different behavior when run from the *debugger* vs. *terminal*
+    > need to double-check this, and create a simple, repeatable, test-case
+  - need better way of displaying `python` DS:
+    - there are other ways, but start here and see what you can *figure out*
+      - [pprint — Data pretty printer — Python 3.12.3 documentation](https://docs.python.org/3/library/pprint.html)
+      - [Prettify Your Data Structures With Pretty Print in Python – Real Python](https://realpython.com/python-pretty-print/)
+      - [Welcome! — Pygments](https://pygments.org/)
+      - [Syntax Highlighting in python using pygments - Deepan Seeralan](https://www.deepanseeralan.com/tech/syntax-highlighting-code-in-python-using-pygments/)
+  - need better understanding of `argparse` *side-effects*, *e.g.*, any assumptions made by `argparse`, that would impact *behavior*, such as `--flag` vs. `-f`
+
+### 5/10 next
+
+- debug (`argparse` issues) and complete argument parsing
+- good luck and have fun❗
+
 ## 5/3
 
 - *embedded struct* example **was** for you - see below (end of `4/23` notes)
