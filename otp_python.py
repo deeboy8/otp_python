@@ -2,31 +2,61 @@ import argparse
 import sys
 import random
 import time
+import string
 
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
-def get_index_value(character, plaintext_len):
-    for i in range(plaintext_len):
+def get_index_value(character):
+    for i in range(len(alpha)):
         if character == alpha[i]:
             return i 
 
 #receive ciphertext to be decoded using key 
-def decode(alpha, key, plaintext, plaintext_count):
-    print("did decode", file=sys.stderr)
-    return 'howdy sunday'
+def decode(alpha, key, ciphertext, ciphertext_len):
+    buffer = []
+    #obtain each char from key and plaintext
+    for i in range(ciphertext_len):
+        key_char_index_value = get_index_value(key[i])
+        print(f"key index value: {key_char_index_value}, {key[i]}")
+        cipher_char_index_value = get_index_value(ciphertext[i])
+        print(f"ciphertext index value: {cipher_char_index_value}, {ciphertext[i]}")
+        sum_of_chars = (cipher_char_index_value - key_char_index_value) % len(alpha)
+        print(f"sum of chars: {sum_of_chars}")
+        # if sum_of_chars > 0:
+        #     value = (sum_of_chars) % 7
+        # else:
+        #     value = abs(sum_of_chars)
+        char_for_decoded_string = alpha[sum_of_chars] 
+        print(char_for_decoded_string)
+        buffer.append(char_for_decoded_string)
+    
+    decoded = ''.join(buffer)
+    print(f"this is decoded message: {decoded}")
+
+    return decoded 
 
 #receive plaintext and key data to generate encoded msg aka ciphertext
-def encode(alpha, key, plaintext, plaintext_count):
-    #obtain each char from key and plaintext 
-    #sum together by and take modulus of length of alpha variable
-    #for i in range(len(plaintext)):
-        #get value of key[i] 
-        #get value of plaintext[i]
-        #sum values and take modulus
-        #retrieve char from alpha variable based on sum
-    ##decide whether to write to file here or return each char##
-    print("it made it to encode()")
-    return 'dune1'
+def encode(alpha, key, plaintext, plaintext_count): #, output_file):
+    buffer = []
+    #obtain each char from key and plaintext
+    for i in range(plaintext_count):
+        key_char_index_value = get_index_value(key[i])
+        print(f"key index value: {key_char_index_value}, {key[i]}")
+        plaintext_char_index_value = get_index_value(plaintext[i])
+        print(f"plaintext index value: {plaintext_char_index_value}, {plaintext[i]}")
+        sum_of_chars = (key_char_index_value + plaintext_char_index_value) % len(alpha)
+        print(f"sum of chars: {sum_of_chars}")
+        char_for_cipher_string = alpha[sum_of_chars]
+        print(char_for_cipher_string)
+        buffer.append(char_for_cipher_string)
+    
+    ciphertext = ''.join(buffer)
+    print(f"this is cp in encode(): {ciphertext}")
+
+    # TODO ##decide whether to write to file here or return each char##
+    return ciphertext
+
+from pprint import pprint
 
 def main():
     #generate parser and fill with appropriate command line arguments
@@ -39,7 +69,7 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-encode', action='store_true', dest='encode', help="command to initiate encoding of plaintext to ciphertext")
     group.add_argument('-keygen', action='store_true', dest='keygen', help="command to generate a key for encoding and decodying message")
-    group.add_argument('-decode', action='store_true', help='command to initiate decodeding of messaage') #convert this to take decode.txt file
+    group.add_argument('-decode', action='store_true', dest='decode', help='command to initiate decodeding of messaage') #convert this to take decode.txt file
     #arguments for key generation
     parser.add_argument('-k', '--key-file', dest = 'key_text', default='key.txt', help = 'file to be generated opened') #convert this to key file 
     parser.add_argument('-l', '--length', help = 'count of chars to generate for key file to hold') #convert this to key file 
@@ -52,7 +82,7 @@ def main():
     #file arguments
     parser.add_argument('-v', '--verbose', help='provide greater depth of help test')
     args = parser.parse_args()
-    print(args, file=sys.stderr)
+    pprint(args) #, file=sys.stderr)
 
     # global_parser = argparse.ArgumentParser(prog='run subparsers')
     # subparser= global_parser.add_subparsers(title='subcommands', help='run subparsers for each component of otp')
@@ -112,42 +142,56 @@ def main():
                     #will write text to new file created
                     with open(args.input_file, "w+") as f_plaintext:
                         f_plaintext.write(args.cl_text)
-                        pt_data = f_plaintext.read()
-                        print(pt_data)
+                        f_plaintext.seek(0)
+                        data = f_plaintext.read()
+                        pt_data = data.upper()
+                        print(f"pt_data: {pt_data}")
                         # sys.stdout.write(args.plaintext)
                 #will open text file and read into stdout handle for redirection on command line
                 elif args.file_text is not None and (args.cl_text is None and args.input_file is None):
                     with open(args.file_text, "r") as f_plaintext:
-                        pt_data = f_plaintext.read()
+                        data = f_plaintext.read()
+                        pt_data = data.upper()
             except FileNotFoundError as err:
                 print(err)
-        plaintext_len = len(pt_data)
+        if args.keygen is True or args.encode is True:
+            plaintext_len = len(pt_data)
         #generate encoding of original msg using key file and original plaintext file
         #this will create the ciphertext file
         if args.encode is True and (args.keygen is False and args.decode is False):
-            #print("demitri first", file=sys.stderr) #printing to stdout but with pipe goes to decoder aka stdin of decoder
             #generate ciphertext by calling fx passing key, plaintext
-            ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
-            print(ciphertext)
+            ciphertext = encode(alpha, key_data, pt_data, plaintext_len) #, args.output_file)
+            # assert(ciphertext)
+            print(f"this is cp: {ciphertext}")
             try:
                 with open(args.output_file, 'w+') as cipher:
                     cipher.write(ciphertext)
+                    # sys.stdout.write(args.output_file)
             except FileNotFoundError as err:
                 print(err)
-            sys.stdout.write(ciphertext)
+            # sys.stdout.write(ciphertext)
         #generate decoded original msg using key file and the ciphertext file
         #this will create the original msg store in the variable new_plaintext
         if args.decode is True and (args.keygen is False and args.encode is False):
-            ciphertext = sys.stdin.read()
-            #generate new_plaintext by passing key and ciphertext to appropriate fx
-            decoded_plaintext = decode(alpha, key_data, ciphertext, plaintext_len)
-            print(decoded_plaintext)
+            #open ciphertext file to import encoded message for decoding
             try:
-                with open(args.decode_file, 'w+') as new_plaintext:
+                with open(args.input_file, "r") as decode_file:
+                    cp_text = decode_file.read()
+                    cp_text_len = len(cp_text)
+                    print(f"cp file contents are: {cp_text}, length is: {cp_text_len}")
+            except:
+                print(err)
+            # else:
+            #     ciphertext = sys.stdin.read()
+            #generate new_plaintext by passing key and ciphertext to appropriate fx
+            decoded_plaintext = decode(alpha, key_data, cp_text, cp_text_len)
+            print(f"decoded plaintext: {decoded_plaintext}")
+            try:
+                with open(args.output_file, 'w+') as new_plaintext:
                     new_plaintext.write(decoded_plaintext)
             except FileNotFoundError as err:
                 print(err)
-            sys.stdout.write(decoded_plaintext)
+            # sys.stdout.write(decoded_plaintext)
     
 if __name__ == "__main__":
     main()
