@@ -104,17 +104,21 @@ def main():
                 if args.cl_text is not None and args.input_file is not None and args.file_text is None:
                     #if -p flag used will pull text directly from command line from user
                     #will write text to new file created
+                    text = args.cl_text
+                    uppercase_text = text.upper()
+                    print(type(uppercase_text))
                     with open(args.input_file, "w+") as f_plaintext:
-                        f_plaintext.write(args.cl_text)
+                        f_plaintext.write(uppercase_text)
                         f_plaintext.seek(0)
-                        data = f_plaintext.read()
-                        pt_data = data.upper()
+                        pt_data = f_plaintext.read()
+                        # pt_data = data.upper()
                         # sys.stdout.write(pt_data)
                 #will open text file and read into stdout handle for redirection on command line
-                elif args.file_text is not None and (args.cl_text is None and args.input_file is None):
+                else: # args.file_text is True and (args.cl_text is False and args.input_file is False):
                     with open(args.file_text, "r") as f_plaintext:
-                        data = f_plaintext.read()
-                        pt_data = data.upper()
+                        pt_data = f_plaintext.read()
+                        # pt_data = data.upper()
+                        # f_plaintext.close()
             except FileNotFoundError as err:
                 print(err)
         if args.keygen is True or args.encode is True:
@@ -125,7 +129,6 @@ def main():
             #generate ciphertext by calling fx passing key, plaintext
             ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
             cp_text = len(ciphertext)
-            
             try:
                 with open(args.output_file, 'w+') as cipher:
                     cipher.write(ciphertext)
@@ -152,7 +155,7 @@ def main():
                     new_plaintext.write(decoded_plaintext)
             except FileNotFoundError as err:
                 print(err)
-            # sys.stdout.write(decoded_plaintext)
+            sys.stdout.write(decoded_plaintext)
     
 if __name__ == "__main__":
     main()
