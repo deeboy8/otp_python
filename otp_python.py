@@ -6,16 +6,17 @@ import string
 
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
+#function to obtain index value of char passed based on position in alphabet 
 def get_index_value(character):
     for i in range(len(alpha)):
         if character == alpha[i]:
             return i 
 
-#based on flag passed (either encoding or decoding) will get sum or subtract value of key[char] and ciphertext[char]/plaintext[char]
-#will use value to collect correct char from alphabet to encrypt/decrypt 
+#based on flag passed (either encoding or decoding) will get resultant arithmetic value of key[char] and ciphertext[char]/plaintext[char]
+#will use value to collect correct char from alphabet to encrypt/decrypt based on resultant numeric value 
 def generate_encrypted_or_decrypted_message(key, data, count, flag):
     buffer = []
-    for i in range(len(data)):
+    for i in range(count):
         key_char_index_value = get_index_value(key[i])
         data_char_index_value = get_index_value(data[i])
 
@@ -33,7 +34,7 @@ def generate_encrypted_or_decrypted_message(key, data, count, flag):
 
     return resultant_string
 
-#pass ciphertext data for decrytped message
+#pass ciphertext data to decrypt encoded message
 def decode(alpha, key, ciphertext, ciphertext_len):
     result = generate_encrypted_or_decrypted_message(key, ciphertext, ciphertext_len, 'd')
 
@@ -94,11 +95,10 @@ def main():
                 key_data = key_file.read()
         except FileNotFoundError as err:
             print(err)
-        # plaintext_len = len(str(args.cl_text))
-        #generate plaintext file to hold original msg
-        #will be used in comparing orginal msg with decoded msg using linux diff cmd
+        #check to ensure only on means of generating plaintext: either via command line or pulled directly from file
         if args.cl_text is not None and args.file_text is not None:
             print("usage error: only one importation of plaintext allowed", file=sys.stderr)
+        #generate plaintext based on means by which it is imported
         if args.cl_text is not None or args.file_text is not None:
             try:
                 if args.cl_text is not None and args.input_file is not None and args.file_text is None:
@@ -111,28 +111,22 @@ def main():
                         f_plaintext.write(uppercase_text)
                         f_plaintext.seek(0)
                         pt_data = f_plaintext.read()
-                        # pt_data = data.upper()
-                        # sys.stdout.write(pt_data)
                 #will open text file and read into stdout handle for redirection on command line
-                else: # args.file_text is True and (args.cl_text is False and args.input_file is False):
+                else:
                     with open(args.file_text, "r") as f_plaintext:
                         pt_data = f_plaintext.read()
-                        # pt_data = data.upper()
-                        # f_plaintext.close()
             except FileNotFoundError as err:
                 print(err)
         if args.keygen is True or args.encode is True:
             plaintext_len = len(pt_data)
-        #generate encoding of original msg using key file and original plaintext file
+        #generate encoding of original msg using key file and original plaintext data
         #this will create the ciphertext file
         if args.encode is not None and (args.keygen is False and args.decode is False):
-            #generate ciphertext by calling fx passing key, plaintext
             ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
             cp_text = len(ciphertext)
             try:
                 with open(args.output_file, 'w+') as cipher:
                     cipher.write(ciphertext)
-                    sys.stdout.write(ciphertext)
             except FileNotFoundError as err:
                 print(err)
             sys.stdout.write(ciphertext)
@@ -155,7 +149,8 @@ def main():
                     new_plaintext.write(decoded_plaintext)
             except FileNotFoundError as err:
                 print(err)
-            sys.stdout.write(decoded_plaintext)
+        #write to stdout file handle for use with diff function on cl 
+        # sys.stdout.write(decoded_plaintext) #****************************
     
 if __name__ == "__main__":
     main()
