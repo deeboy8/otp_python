@@ -11,47 +11,39 @@ def get_index_value(character):
         if character == alpha[i]:
             return i 
 
-#receive ciphertext to be decoded using key 
+#based on flag passed (either encoding or decoding) will get sum or subtract value of key[char] and ciphertext[char]/plaintext[char]
+#will use value to collect correct char from alphabet to encrypt/decrypt 
+def generate_encrypted_or_decrypted_message(key, data, count, flag):
+    buffer = []
+    for i in range(len(data)):
+        key_char_index_value = get_index_value(key[i])
+        data_char_index_value = get_index_value(data[i])
+
+        #based on flag will subtract or add data char to key char value
+        #if encryption, key will be added to data message
+        #if decrytping, key will be substacted from data message
+        if flag == 'e':
+            sum_of_chars = (data_char_index_value + key_char_index_value) % len(alpha)
+        if flag == 'd':
+            sum_of_chars = (data_char_index_value - key_char_index_value) % len(alpha)
+        char_for_message = alpha[sum_of_chars] 
+        buffer.append(char_for_message)
+
+    resultant_string = ''.join(buffer)
+
+    return resultant_string
+
+#pass ciphertext data for decrytped message
 def decode(alpha, key, ciphertext, ciphertext_len):
-    buffer = []
-    #obtain each char from key and plaintext
-    for i in range(ciphertext_len):
-        key_char_index_value = get_index_value(key[i])
-        print(f"key index value: {key_char_index_value}, {key[i]}")
-        cipher_char_index_value = get_index_value(ciphertext[i])
-        print(f"ciphertext index value: {cipher_char_index_value}, {ciphertext[i]}")
-        sum_of_chars = (cipher_char_index_value - key_char_index_value) % len(alpha)
-        print(f"resultant value: {sum_of_chars}")
-        char_for_decoded_string = alpha[sum_of_chars] 
-        print(char_for_decoded_string)
-        buffer.append(char_for_decoded_string)
-    
-    decoded = ''.join(buffer)
-    print(f"this is decoded message: {decoded}")
+    result = generate_encrypted_or_decrypted_message(key, ciphertext, ciphertext_len, 'd')
 
-    return decoded 
+    return result 
 
-#receive plaintext and key data to generate encoded msg aka ciphertext
-def encode(alpha, key, plaintext, plaintext_count): #, output_file):
-    buffer = []
-    #obtain each char from key and plaintext
-    for i in range(plaintext_count):
-        key_char_index_value = get_index_value(key[i])
-        print(f"key index value: {key_char_index_value}, {key[i]}")
-        plaintext_char_index_value = get_index_value(plaintext[i])
-        print(f"plaintext index value: {plaintext_char_index_value}, {plaintext[i]}")
-        sum_of_chars = (key_char_index_value + plaintext_char_index_value) % len(alpha)
-        print(f"sum of chars: {sum_of_chars}")
-        char_for_cipher_string = alpha[sum_of_chars]
-        print(char_for_cipher_string)
-        buffer.append(char_for_cipher_string)
-    
-    ciphertext = ''.join(buffer)
-    print(f"this is cp in encode(): {ciphertext}")
+#pass plaintext data for encryption
+def encode(alpha, key, plaintext, plaintext_count):
+    result = generate_encrypted_or_decrypted_message(key, plaintext, plaintext_count, 'e')
 
-    # TODO ##decide whether to write to file here or return each char##
-
-    return ciphertext
+    return result
 
 def main():
     #generate parser and fill with appropriate command line arguments
@@ -117,7 +109,7 @@ def main():
                         f_plaintext.seek(0)
                         data = f_plaintext.read()
                         pt_data = data.upper()
-                        # sys.stdout.write(args.plaintext)
+                        # sys.stdout.write(pt_data)
                 #will open text file and read into stdout handle for redirection on command line
                 elif args.file_text is not None and (args.cl_text is None and args.input_file is None):
                     with open(args.file_text, "r") as f_plaintext:
@@ -132,29 +124,27 @@ def main():
         if args.encode is not None and (args.keygen is False and args.decode is False):
             #generate ciphertext by calling fx passing key, plaintext
             ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
-            print(f"cipher text is: {ciphertext}")
+            cp_text = len(ciphertext)
+            
             try:
                 with open(args.output_file, 'w+') as cipher:
                     cipher.write(ciphertext)
-                    sys.stdout.write(args.output_file)
+                    sys.stdout.write(ciphertext)
             except FileNotFoundError as err:
                 print(err)
-            # sys.stdout.write(ciphertext)
+            sys.stdout.write(ciphertext)
         #generate decoded original msg using key file and the ciphertext file
         #this will create the original msg store in the variable new_plaintext
         if args.decode is True and (args.keygen is False and args.encode is False):
-            # time.sleep(1) #---> not a good solution
             #open ciphertext file to import encoded message for decoding
             # if args.input_file is not None: #True: 
-            #     try:
-            #         with open(args.input_file, "r") as decode_file:
-            #             cp_text = decode_file.read()
-            #             cp_text_len = len(cp_text)
-            #     except:
-            #         print(err)
-            # else:
-            cp_text = sys.stdin.read()
-            cp_text_len = len(cp_text)
+            sys.stdin.read()
+            try:
+                with open(args.input_file, "r") as decode_file:
+                    cp_text = decode_file.read()
+                    cp_text_len = len(cp_text)
+            except:
+                print(err)
             #generate new_plaintext by passing key and ciphertext to appropriate fx
             decoded_plaintext = decode(alpha, key_data, cp_text, cp_text_len)
             try:
