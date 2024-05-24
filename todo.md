@@ -1,5 +1,74 @@
 # notes
 
+## 5/24
+
+- reviewed client/server (c/s) architecture for a networked enabled (over *sockets*) `otp`
+- defined *daemons* as system processes, started when the system starts, run in the background, and have no direct UI
+  - UI is often a seperate *client* application
+  - this is the architecture we'll use for `otp`
+- `otp` now runs as five seperate applications:
+  - `keygen` - client only key generator
+  - `encode`/`decode` - client side apps, responsible for command line args, validation, packaging, communication w/transport (*sockets*, files, memory...), I/O...
+  - `encode_d`/`decode_d` - server side apps that *listen* on a supplied port/socket and use a child process to handle requests, over a *communication* socket
+    > how will processes be managed (*e.g.*, max 5) - pool, queue, *etc.*?
+- discussed organizing code along different axis:
+  - 6 files: main, keygen, encode, decode, encode_d, decode_d
+  - 4 files:  main, keygen, clients, servers (c/s axis)
+  - 4 files:  main, keygen, encode, decode (encode/decode axis)
+  - *etc.*
+
+### 5/24 next
+
+- continue with '5/15 next'
+
+## 5/21
+
+- reviewed the *tri-state* possibilities of multiple CLAs, *e.g.*
+
+  ``` python
+  switch(input_file_flag) {
+    # flag not specified
+    case missing:
+      input_file = stdin
+    # flag missing value
+    case no value:
+      input_file = open("default-file.txt")
+    # use supplied file name
+    default:
+      input_file = open(supplied_file_name)
+  } 
+
+  ```
+
+### 5/21 next
+
+- see below…
+
+## 5/15
+
+- started by debugging the debugger, *i.e.*, passing individual strings (`args`) via `launch.json` vs. a single string:
+  - `"a", "b", "c"`  
+    vs.
+  - `"a b  c"`
+- discussed different *types* of breakpoints (*logpoints*) in `vs code`
+  > [logpoints, *etc.*](https://code.visualstudio.com/docs/python/python-tutorial#:~:text=Tip%3A%20Use%20Logpoints,Code%20debugging%20article.)
+- learned about the *truthiness* of strings, via interactive `python`:
+  > tl;dr...let me know what you think:  
+    > [Python's bool() Function: The Safe and Straightforward Way to Convert Strings to Booleans](https://python-code.dev/articles/2565231)
+
+### 5/15 next
+
+- cleanup, refactor, comment, *etc.* `v.current` of `otp` in prep for `v.next`
+- decided that `v.next` will be `sockets` based and follow the architecture as documented in the `otp.pdf` doc
+- pre-reqs for `v.next` beyond reviewing the `pdf`:
+  - [**socket** — Low-level networking interface — Python 3.12.3 documentation](https://docs.python.org/3/library/socket.html)
+  - [**logging** — Logging facility for Python — Python 3.12.3 documentation](https://docs.python.org/3/library/logging.html)
+
+    > don't forget to look for other resources, especially those on [**Real Python**](https://realpython.com/)
+- let's review `vs code`/`extension`/`python` environments  
+
+good luck and have fun!
+
 ## 5/10
 
 - quick discussion on interview/job opportunities
