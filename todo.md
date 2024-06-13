@@ -1,5 +1,26 @@
 # notes
 
+## 6/11
+
+- Discussed job opportunities, *devops* vs. *development*, scripting, tooling, test, and production code
+- Reviewed `dsh` - more specifically `fork()` and `exec()`
+- Discussed the challenges, and uncommon sightings in production code, of recursive algorithms:
+
+    > [Understanding Recursion With Examples | Better Programming](https://betterprogramming.pub/understanding-recursion-with-examples-f74606fd6be0)  
+    > [Recursion Visualizer](https://www.recursionvisualizer.com/)
+
+- Discussed sockets, the RP article and how we can use this as a base to start from
+
+    > need to define protocol
+
+- Ensure that `pyotp` is done - likely requires one more scrubbing – structure (internal and external), naming, style, dead code, commented out code, *etc.*
+
+  > in prep for C/S or other enhancements
+
+## 6/11 next
+
+- Complete review of RP sockets article
+
 ## 5/24
 
 - reviewed client/server (c/s) architecture for a networked enabled (over *sockets*) `otp`
