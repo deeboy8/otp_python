@@ -1,5 +1,31 @@
 # notes
 
+## 6/26
+
+- In the last couple of meetings, we discussed a few *administrivia* items:
+  - Moving apartments👎
+  - Splitting our time between `python` and `C`
+    - Complete `pyotp`
+      - Continuing work w/study group
+    - Cleanup `C` projects/repos
+  - Post vacation: **Mon.** will be `C` day, **Fri.** will be `python` day
+    > Subject to review…will meeting right before and after weekend work?
+- Reviewed `my_zsh` usage of [`fork`](https://linux.die.net/man/3/fork), [`exec`](https://linux.die.net/man/3/exec) and [`#pragma`](https://en.cppreference.com/w/c/preprocessor/impl)
+- Mentioned:
+  - Extension for adding to [`.gitignore`](https://marketplace.visualstudio.com/items?itemName=maciejdems.add-to-gitignore)
+  - `getopt`/`C` sample: [getopt-parsing](https://github.com/davegi/getopt-parsing/blob/main/gop.c)
+- Given our chat – a few articles on distributed systems:
+  - [What is a Distributed System? - GeeksforGeeks](https://www.geeksforgeeks.org/what-is-a-distributed-system/)
+  - [Fundamentals of Distributed Systems | Baeldung on Computer Science](https://www.baeldung.com/cs/distributed-systems-guide)
+  - [Directory of Azure Cloud Services | Microsoft Azure](https://azure.microsoft.com/en-us/products/)
+  - [AWS services by category - Overview of Amazon Web Services](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html)
+
+## 6/26 next
+
+- Review latter part of: [Socket Programming in Python (Guide) – Real Python](https://realpython.com/python-sockets/)
+  - Design protocol for `py_otp`
+- Review `my_zsh` - me first and then together
+
 ## 6/11
 
 - Discussed job opportunities, *devops* vs. *development*, scripting, tooling, test, and production code
