@@ -1,5 +1,38 @@
 # notes
 
+## 7/15
+
+- In today’s Lesson we laid out a go-forward plan:
+  - **Python**:
+    - Continue working w/cohort on data structures/algorithm problems
+      - Objectives:
+        - Continue gaining experience
+        - Interview prep
+    - Use a structured – order, milestones, deliverables - course for broad exposure
+      - Objectives:
+        - A recognizable, upload-able certificate
+        - A publishable portfolio of projects
+    - Complete `otp-python`
+      - Objectives:
+        - pair-program
+          - *let's discuss*
+        - client/server
+        - publishable
+  - **C**:
+    - Put review of old e.g., `my_zsh` projects on back-burner
+    - Post `otp-python`, new project: `otp`, virus simulation, other?
+      - Objectives:
+        - *let's discuss*
+
+### 7/15 next
+
+- Use Friday to review status of Python efforts
+- Download, configure, build, run, test Real Python’s echo server
+- Be prepared to discuss [Real Python’s article up to Multiple… Socket Programming in Python (Guide) – Real Python](https://realpython.com/python-sockets/#multi-connection-client-and-server)
+- Refine on go forward plan for `otp-python` before switching to C
+
+Good luck and have fun!
+
 ## 6/26
 
 - In the last couple of meetings, we discussed a few *administrivia* items:
