@@ -3,25 +3,9 @@ import sys
 import random
 import time
 import string
-
-# input-file-name = None
-# if the input-file-arg is supplied - -i foo.txt
-#   input-file-name = foo.txt
-# else if input-file-arg is missing - -i
-#   input-file-name = pt.txt
-#
-# "named file"
-# if input-file-name is not None    # in this instance,
-# it is either foo.txt or pt.txt
-#   fs = open(input-file-name)
-# else  # input-file-name is None
-#   fs = stdin
-#
-### all refs. to the input file (stream) is through 'fs'
-# all readfs / writes use fs - in out case just read
-# os.read(fs)
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
+# from otp_enc import encode
 
 # function to obtain index value of char passed based on position in alphabet
 def get_index_value(character):
@@ -29,9 +13,8 @@ def get_index_value(character):
         if character == alpha[i]:
             return i
 
-
-# based on flag passed (either encoding or decoding) will get resultant arithmetic value of key[char] and ciphertext[char]/plaintext[char]
-# will use value to collect correct char from alphabet to encrypt/decrypt based on resultant numeric value
+# # based on flag passed (either encoding or decoding) will get resultant arithmetic value of key[char] and ciphertext[char]/plaintext[char]
+# # will use value to collect correct char from alphabet to encrypt/decrypt based on resultant numeric value
 def generate_encrypted_or_decrypted_message(key, data, count, flag):
     buffer = []
     for i in range(count):
@@ -52,7 +35,6 @@ def generate_encrypted_or_decrypted_message(key, data, count, flag):
 
     return resultant_string
 
-
 # pass ciphertext data to decrypt encoded message
 def decode(alpha, key, ciphertext, ciphertext_len):
     result = generate_encrypted_or_decrypted_message(
@@ -60,7 +42,6 @@ def decode(alpha, key, ciphertext, ciphertext_len):
     )
 
     return result
-
 
 # pass plaintext data for encryption
 def encode(alpha, key, plaintext, plaintext_count):
@@ -70,12 +51,14 @@ def encode(alpha, key, plaintext, plaintext_count):
 
     return result
 
-
+#generate command line parser using argparse module as part of Python standard library
+#https://docs.python.org/3.7/library/argparse.html#module-argparse
+#based on commands passed will determine type of encryption
 def main():
     # generate parser and fill with appropriate command line arguments
     parser = argparse.ArgumentParser(
         prog="otp",
-        description="otp (one time pad) is a program which recieves a message, either plaintext or encrypted, and performs encryption or decryption using a random key",
+        description="otp is a program which recieves a message as either plaintext or encrypted, and performs encryption or decryption using a random key",
         epilog="thanks for using my %(prog)s program :)",
     )
     # otp arguments
@@ -131,7 +114,7 @@ def main():
         help="specify input text directly from command line for encoding",
     )
     parser.add_argument(
-        "-T", "--file_text", dest="file_text", help="the message to be encoded"
+        "-T", "--file_text", dest="file_text", help="a file containing plaintext to be used for encoded"
     )
     parser.add_argument(
         "-o",
@@ -174,18 +157,13 @@ def main():
                 file=sys.stderr,
             )
         # generate plaintext based on means by which it is imported
-        if args.cl_text is not None or args.file_text is not None:
+        if args.cl_text is not None or args.file_text is None:
             try:
-                if (
-                    args.cl_text is not None
-                    and args.input_file is not None
-                    and args.file_text is None
-                ):
+                if args.cl_text is not None and (args.input_file is not None and args.file_text is None):
                     # if -p flag used will pull text directly from command line from user
                     # will write text to new file created
                     text = args.cl_text
                     uppercase_text = text.upper()
-                    print(type(uppercase_text))
                     with open(args.input_file, "w+") as f_plaintext:
                         f_plaintext.write(uppercase_text)
                         f_plaintext.seek(0)
@@ -200,7 +178,7 @@ def main():
             plaintext_len = len(pt_data)
         # generate encoding of original msg using key file and original plaintext data
         # this will create the ciphertext file
-        if args.encode is not None and (args.keygen is False and args.decode is False):
+        if args.encode is True and (args.keygen is False and args.decode is False):
             ciphertext = encode(alpha, key_data, pt_data, plaintext_len)
             cp_text = len(ciphertext)
             try:
@@ -214,23 +192,6 @@ def main():
         if args.decode is True and (args.keygen is False and args.encode is False):
             # open ciphertext file to import encoded message for decoding
             # if args.input_file is not None: #True:
-
-            # hypothetical
-            if args.input_file is False:
-                decode_file = open("pt.txt", "r")
-
-            if args.input_file is True:
-                decode_file = open(args.input_file, "r")
-            else:
-                decode_file = sys.stdin
-
-            cp_text = decode_file.read()
-            cp_text_len = len(cp_text)
-
-            if args.input_file is True:
-                sys.close(decode_file)
-
-            sys.stdin.read()
             try:
                 with open(args.input_file, "r") as decode_file:
                     cp_text = decode_file.read()
@@ -244,9 +205,6 @@ def main():
                     new_plaintext.write(decoded_plaintext)
             except FileNotFoundError as err:
                 print(err)
-        # write to stdout file handle for use with diff function on cl
-        # sys.stdout.write(decoded_plaintext) #****************************
-
 
 if __name__ == "__main__":
     main()

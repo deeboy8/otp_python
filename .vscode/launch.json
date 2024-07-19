@@ -1,5 +1,5 @@
 {
-    // Use IntelliSense to learn about possible attributes.
+    //Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
@@ -9,6 +9,11 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
+            "args": ["-encode", "-k", "key19.txt", "-t", "today is Friday", "-o", "cpt19.txt", "-l", "30", "-i", "pt19.txt"],
+            // ["-encode",  "-T", "plaintext.txt", "-o", "cipher_text.txt", "-k", "key.txt", "-l", "25", "-i", "pt19.txt"],
+            // "args": ["-decode", "-i", "encoded_text.txt", "-k", "key.txt", "-o", "decoded_plaintext.txt"],
+            // "args": ["-encode -t 'howdy sunday' -i encode5.txt -o cp.txt -l '25' -k key1.txt"],
+            // "args": ["-encode", "-t", "today is the day", "-l", "25", "-k", "key.txt", "-i", "plaintext.txt", "-o", "encoded_text.txt", "|", "-decode", "-i", "encoded_text.txt", "-k", "key.txt", "-o", "decoded_plaintext.txt"],
             "console": "integratedTerminal"
         }
     ]
