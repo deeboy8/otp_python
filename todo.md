@@ -1,5 +1,85 @@
 # notes
 
+## 7/15
+
+- In today’s Lesson we laid out a go-forward plan:
+  - **Python**:
+    - Continue working w/cohort on data structures/algorithm problems
+      - Objectives:
+        - Continue gaining experience
+        - Interview prep
+    - Use a structured – order, milestones, deliverables - course for broad exposure
+      - Objectives:
+        - A recognizable, upload-able certificate
+        - A publishable portfolio of projects
+    - Complete `otp-python`
+      - Objectives:
+        - pair-program
+          - *let's discuss*
+        - client/server
+        - publishable
+  - **C**:
+    - Put review of old e.g., `my_zsh` projects on back-burner
+    - Post `otp-python`, new project: `otp`, virus simulation, other?
+      - Objectives:
+        - *let's discuss*
+
+### 7/15 next
+
+- Use Friday to review status of Python efforts
+- Download, configure, build, run, test Real Python’s echo server
+- Be prepared to discuss [Real Python’s article up to Multiple… Socket Programming in Python (Guide) – Real Python](https://realpython.com/python-sockets/#multi-connection-client-and-server)
+- Refine on go forward plan for `otp-python` before switching to C
+
+Good luck and have fun!
+
+## 6/26
+
+- In the last couple of meetings, we discussed a few *administrivia* items:
+  - Moving apartments👎
+  - Splitting our time between `python` and `C`
+    - Complete `pyotp`
+      - Continuing work w/study group
+    - Cleanup `C` projects/repos
+  - Post vacation: **Mon.** will be `C` day, **Fri.** will be `python` day
+    > Subject to review…will meeting right before and after weekend work?
+- Reviewed `my_zsh` usage of [`fork`](https://linux.die.net/man/3/fork), [`exec`](https://linux.die.net/man/3/exec) and [`#pragma`](https://en.cppreference.com/w/c/preprocessor/impl)
+- Mentioned:
+  - Extension for adding to [`.gitignore`](https://marketplace.visualstudio.com/items?itemName=maciejdems.add-to-gitignore)
+  - `getopt`/`C` sample: [getopt-parsing](https://github.com/davegi/getopt-parsing/blob/main/gop.c)
+- Given our chat – a few articles on distributed systems:
+  - [What is a Distributed System? - GeeksforGeeks](https://www.geeksforgeeks.org/what-is-a-distributed-system/)
+  - [Fundamentals of Distributed Systems | Baeldung on Computer Science](https://www.baeldung.com/cs/distributed-systems-guide)
+  - [Directory of Azure Cloud Services | Microsoft Azure](https://azure.microsoft.com/en-us/products/)
+  - [AWS services by category - Overview of Amazon Web Services](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html)
+
+## 6/26 next
+
+- Review latter part of: [Socket Programming in Python (Guide) – Real Python](https://realpython.com/python-sockets/)
+  - Design protocol for `py_otp`
+- Review `my_zsh` - me first and then together
+
+## 6/11
+
+- Discussed job opportunities, *devops* vs. *development*, scripting, tooling, test, and production code
+- Reviewed `dsh` - more specifically `fork()` and `exec()`
+- Discussed the challenges, and uncommon sightings in production code, of recursive algorithms:
+
+    > [Understanding Recursion With Examples | Better Programming](https://betterprogramming.pub/understanding-recursion-with-examples-f74606fd6be0)  
+    > [Recursion Visualizer](https://www.recursionvisualizer.com/)
+
+- Discussed sockets, the RP article and how we can use this as a base to start from
+
+    > need to define protocol
+
+- Ensure that `pyotp` is done - likely requires one more scrubbing – structure (internal and external), naming, style, dead code, commented out code, *etc.*
+
+  > in prep for C/S or other enhancements
+
+## 6/11 next
+
+- Complete review of RP sockets article
+
 ## 5/24
 
 - reviewed client/server (c/s) architecture for a networked enabled (over *sockets*) `otp`
