@@ -1,5 +1,33 @@
 # notes
 
+## 7/22
+
+## 7/19
+
+In this week’s lessons, we:
+
+- Discussed job opportunity – very exciting❗
+- Reviewed and agreed to our go-forward plan – `C`, `Python`…
+- Decided to pair-program socket implementation of `otp` from scratch
+  - new repo?
+- Introduced [typing](https://docs.python.org/3/library/typing.html),
+[fire](https://google.github.io/python-fire/guide/),
+[click](https://click.palletsprojects.com/en/8.1.x/), and
+[typer](https://typer.tiangolo.com/)  
+  - First and last are most relevant to `otp`
+  - Need to review dev. env. – extensions, `mypy`, etc.
+- Got the Real Python echo client/sever running in your dev. env.
+- Began review of Real Python’s Multi-Connection Client and Server
+
+### 7/22 next
+
+- Complete review of Real Python’s [Multi-Connection Client and Server](https://realpython.com/python-sockets/#multi-connection-client-and-server)
+  - Understand selectors
+- Review dev. env.
+- Discuss implementation of `otp` command line using typer
+
+Good luck and have fun!
+
 ## 7/15
 
 - In today’s Lesson we laid out a go-forward plan:
