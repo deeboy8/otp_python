@@ -1,5 +1,46 @@
 # notes
 
+## 7/26
+
+## 7/29
+
+- Discussed:
+  - Future planning and Sept. milestone (moving)
+  - How DS cohort seems to be on vacation 😎
+  - How you’re a big DataCamp fan❗
+    - I’ll review their article on sockets
+- Reviewed *Multi-Connection Client and Server* (MC) from RP article
+- *Selectors* wrap and monitor sockets for either *read*, *write* or *both* events
+  - The *mask*, related to events, requires a bit of bit-twiddling – *i.e.*, use a **bit** (😎) of bit level operators, *e.g.*,  `AND` (`&`), `OR` (`|`), `NOT` (`~`) …
+    - *Selectors* can wrap any `fileobj`, *e.g.*, socket, file, keyboard, pipe …
+- Functions are used to manage the *listen* and *connection* sockets
+  - A sentinel, `data=None`, is used to differentiate between the two
+  - The data parameter can hold anything you want, *e.g.*, `SimpleNamespace`
+- Decided not to move onto *Application and Client Server* (ACS) until:
+  - You gain a better understanding of the MC version
+  - We’ll study the ACS code together
+- Detailed review of the MC version, w/much discussion on trying to find an analogy, that we both liked, for; socket, port, and host/address
+  - Best I stumbled upon is that an address is a room (or apartment building) and the port is a specific seat (or apartment/unit)
+  - see if any of these help:
+    - [networks - What would be a good analogy for IP addresses and ports? - Computer Science Educators Stack Exchange](https://cseducators.stackexchange.com/questions/1331/what-would-be-a-good-analogy-for-ip-addresses-and-ports)
+    - [Socket vs Port - Detailed Explanation and Difference - IP With Ease](https://ipwithease.com/ports-and-socket-explanation/)
+    - [Difference between IP Address and Port Number - IP With Ease](https://ipwithease.com/difference-between-ip-address-and-port-number/)
+    - [The Difference Between a Port and a Socket | Baeldung on Computer Science](https://www.baeldung.com/cs/port-vs-socket)
+    - [Port Numbers and Sockets Explained: Key Networking Concepts](https://www.itms-us.com/Articles/Port-Numbers-And-Sockets-Explained)
+    - [TCP/IP Ports and Sockets Explained](http://www.steves-internet-guide.com/tcpip-ports-sockets/)
+    - [Understanding sockets concepts - IBM Documentation](https://www.ibm.com/docs/en/zos/3.1.0?topic=concepts-understanding-sockets)
+    - [Difference between Socket and Port? - GeeksforGeeks](https://www.geeksforgeeks.org/difference-between-socket-and-port/#)
+    - [The OSI Model – The 7 Layers of Networking Explained in Plain English](https://www.freecodecamp.org/news/osi-model-networking-layers-explained-in-plain-english/)
+    - [A Complete Guide to Socket Programming in Python | DataCamp](https://www.datacamp.com/tutorial/a-complete-guide-to-socket-programming-in-python)
+
+### 7/29 next
+
+- Continue deep dive into RP code
+  - MC C/S - running each, simultaneously, under debugger control
+  - Begin review of ACS
+
+Good luck and have fun!
+
 ## 7/22
 
 ## 7/19
