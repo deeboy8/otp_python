@@ -1,5 +1,30 @@
 # notes
 
+## 8/6
+
+## 8/2
+
+In our most recent meetings, we…
+
+- Caught up on the status of your DS cohort (vacation?) and *taking your time* w/the **DC Course**
+- Discussed Olympics/politics
+- Continued review of **RP’s Socket article**:
+  - *Selectors*, and the entire *multi-connect client/server* is still a bit *muddy*
+    - Put on back-burner for now
+    - Jump directly into code when we pull it back onto the front-burner
+    - Further discussed *sockets* as a mechanism for binding an *address* (*e.g.*, computer) and *port* (*i.e.*, specific app)
+    - Discussed how the **echo C/S** has an *implied protocol* – assumptions made about its format, *etc*.
+- Took a bit of a detour to discuss `regex` – very important topic…you should **definitely** continue to learn
+- Began to review `typer` docs/code and discussed why I chose it vs. `fire` vs. `click` vs. …
+- Walked through `typer` code on replit
+
+### 8/6 next
+
+- Continue review of `typer` – in context of `otp`
+- **Offline**: continue to review RP Sockets article, and research sockets/hosts(addresses) and ports, to gain a better understanding before our return
+
+Good luck and have fun!
+
 ## 7/26
 
 ## 7/29
