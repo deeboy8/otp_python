@@ -1,10 +1,26 @@
 # notes
 
-## 8/16
+## 8/21
 
-## 8/13
+- Discussed (`typer`) commands, command line arguments vs. standard handles (`stdin`, `stdout`, `stderr`) and your proposed design
+- _CLAs_ and _standard handles_ are _setup_ - command line tokenized into strings - and standard handles bound to...well that depends on how the procedss is created:
+  - most (all?) shells have the ability to bind `stdin` to the keyboard (default), a file (redirection`<`), or another process (via a _pipe_: `|`)
+  - `stdout` and `stderr` can be bound to the screen (default), a file (redirection `>`), or another process (via a _pipe_: `|`)
+- Given the above, I believe that the _simplest_ command line(s) are:
+  - `./otp keygen -l | --length [int] -s | --seed [int] > key.txt`
+  - `./otp encode_c -k | --key key.txt -p | --port [int] -h || --host [IP address] < plain_text.txt > cipher_text.txt`
+  - `./otp encode_s -p | --port [int]`
+  - `./otp decode_c -k | --key key.txt -p | --port [int] -h || --host [IP address] < cipher_text.txt > plain_text.txt`
+  - `./otp decode_s -p | --port [int]`
+  
+  > Make sense? Did I miss something?
 
-## 8/9
+### 8/21 next
+
+- Continue with `otp` command line design and `typer` functions to support
+  - [CLI Option Name - Typer](https://typer.tiangolo.com/tutorial/options/name/) - Supports using different internal (variable) and external (CLA) Option names
+
+## 8/16 / 8/13 / 8/9
 
 - Discussed how, after some reading/review/navel gazing😎, you had better understanding of, and even wrote some initial `typer` code❗
 - High level chat about `pytest`, and how most (all?) UT frameworks tend to offer these four services:
