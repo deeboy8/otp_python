@@ -154,7 +154,7 @@ def main():
         if args.cl_text is not None and args.file_text is not None:
             print(
                 "usage error: only one importation of plaintext allowed",
-                file=sys.stderr,
+                file=sys.stderr
             )
         # generate plaintext based on means by which it is imported
         if args.cl_text is not None or args.file_text is None:

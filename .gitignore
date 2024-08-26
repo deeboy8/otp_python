@@ -112,3 +112,7 @@ GitHub.sublime-settings
 playground.py
 *.txt
 /playground
+meechie.md
+/real_python_sockets
+/typer_otp
+otp_typer.py 
