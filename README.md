@@ -18,7 +18,7 @@ Three key definitions are important:
 
 ## How to Compile
 
-Compile by typing python3 otp_python.py with the following combinations of commands and flags below
+Compile by typing python3 otp_python.py with the following combinations of commands and flags (see below)
 
 ## Usage
 
